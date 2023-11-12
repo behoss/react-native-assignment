@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "react-native-app",
-    "slug": "react-native-app",
+    "slug": "assignment",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -34,6 +34,21 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ce8260d7-93e0-43a0-87d8-b07da34b8c70"
+      }
+    },
+    "owner": "b3h24d",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ce8260d7-93e0-43a0-87d8-b07da34b8c70"
     }
   }
 }
