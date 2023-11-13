@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Text, View } from "../../components/Themed";
 import profiles_data from "../../data/profiles.json";
 import { getImagePath } from "../../utils";
-import { Profile } from "./profiles";
+import { Profile } from ".";
 
 export default function ChatScreen() {
   const renderItem = ({ item }: { item: Profile }) => (
