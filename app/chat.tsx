@@ -21,13 +21,18 @@ export default function ChatScreen() {
 
   useEffect(() => {
     setCurrentConvoId(parseInt(id.toString()) || 0);
-    const profile = likedProfiles.find((p) => p.id === parseInt(id.toString()));
+    const profile = likedProfiles.find(
+      (p: { id: number }) => p.id === parseInt(id.toString()),
+    );
     setProfile(profile || null);
   }, [id, likedProfiles]);
 
   useEffect(() => {
     const sortedMessages = convos[currentConvoId]?.sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+      (
+        a: { createdAt: { getTime: () => number } },
+        b: { createdAt: { getTime: () => number } },
+      ) => b.createdAt.getTime() - a.createdAt.getTime(),
     );
 
     setSortedMessages(sortedMessages);
