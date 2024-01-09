@@ -35,7 +35,6 @@ const useStore = create<IUseState>((set) => ({
       likedProfiles: [...state.likedProfiles, profile],
     })),
 
-  // Unmatch a profile by removing it from the likedProfiles array and removing the convo
   unmatchProfile: (profileId: number) =>
     set((state) => ({
       likedProfiles: state.likedProfiles.filter(
