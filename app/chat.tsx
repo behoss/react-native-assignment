@@ -25,6 +25,16 @@ export default function ChatScreen() {
     setProfile(profile || null);
   }, [id, likedProfiles]);
 
+  useEffect(() => {
+    const sortedMessages = convos[currentConvoId]?.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    );
+
+    setSortedMessages(sortedMessages);
+  }, [convos, currentConvoId]);
+
+  const [sortedMessages, setSortedMessages] = useState([] as Message[]);
+
   const sendMessage = () => {
     if (text) {
       const newMessage: Message = {
@@ -36,10 +46,6 @@ export default function ChatScreen() {
       setText("");
     }
   };
-
-  const sortedMessages = convos[currentConvoId]?.sort(
-    (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-  );
 
   return (
     <View style={styles.container}>

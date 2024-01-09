@@ -7,15 +7,14 @@ import useStore from "../../store";
 import { Link } from "expo-router";
 
 export default function Matches() {
-  const { likedProfiles, convos } = useStore();
+  const { likedProfiles, getLastMessageInConvo } = useStore();
 
   const renderItem = ({ item }: { item: Profile }) => (
     <Link href={`/chat?id=${item.id}`} asChild>
       <List.Item
         title={item.name}
-        // Get the last message in the conversation
         description={
-          convos[item.id]?.slice(-1)[0]?.content || `Say hi to ${item.name}! 👋`
+          getLastMessageInConvo(item.id) || `Say hi to ${item.name}! 👋`
         }
         left={() => (
           <Avatar.Image size={50} source={getImagePath(item.image)} />
