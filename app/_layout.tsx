@@ -1,12 +1,17 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   // DarkTheme,
-  DefaultTheme,
+  // DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import {
+  PaperProvider,
+  MD3LightTheme as DefaultTheme,
+} from "react-native-paper";
+
 // import { useColorScheme } from "react-native";
 
 export {
@@ -51,11 +56,13 @@ function RootLayoutNav() {
 
   return (
     // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-    <ThemeProvider value={DefaultTheme}>
+    // <ThemeProvider value={DefaultTheme}>
+    <PaperProvider theme={DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
-    </ThemeProvider>
+    </PaperProvider>
+    // </ThemeProvider>
   );
 }

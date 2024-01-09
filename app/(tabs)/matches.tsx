@@ -1,64 +1,57 @@
 import React from "react";
-import { FlatList, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Text, View } from "../../components/Themed";
-import profiles_data from "../../data/profiles.json";
+import { FlatList, Pressable, View } from "react-native";
+import { List, Avatar, Text, Icon } from "react-native-paper";
 import { getImagePath } from "../../utils";
-import { Profile } from ".";
+import { Profile } from "../../types";
+import useStore from "../../store";
+import { Link } from "expo-router";
 
-export default function ChatScreen() {
+export default function Matches() {
+  const { likedProfiles, convos } = useStore();
+
   const renderItem = ({ item }: { item: Profile }) => (
-    <TouchableOpacity
-      style={styles.item}
-      onPress={() => {
-        /* Navigate to chat */
-      }}
-    >
-      <Image source={getImagePath(item.image)} style={styles.avatar} />
-      <View style={styles.infoContainer}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.preview}>Hey, how are you doing?</Text>
-      </View>
-    </TouchableOpacity>
+    <Link href={`/chat?id=${item.id}`} asChild>
+      <List.Item
+        title={item.name}
+        // Get the last message in the conversation
+        description={
+          convos[item.id]?.slice(-1)[0]?.content || `Say hi to ${item.name}! 👋`
+        }
+        left={() => (
+          <Avatar.Image size={50} source={getImagePath(item.image)} />
+        )}
+        style={{ borderBottomWidth: 1, borderBottomColor: "#cccccc" }}
+      />
+    </Link>
   );
+
+  if (likedProfiles.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 20,
+        }}
+      >
+        <Icon source="message-outline" size={100} color="gray" />
+        <Text
+          variant="bodyLarge"
+          style={{ textAlign: "center", fontSize: 18, paddingVertical: 12 }}
+        >
+          Here you will have conversations with your future matches! 😊
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <FlatList
-      data={profiles_data}
+      data={likedProfiles}
       renderItem={renderItem}
       keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={styles.container}
+      contentContainerStyle={{ padding: 10 }}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-  },
-  item: {
-    flexDirection: "row",
-    padding: 10,
-    alignItems: "center",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#cccccc",
-    backgroundColor: "white",
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
-  },
-  infoContainer: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  preview: {
-    fontSize: 14,
-    color: "#666",
-  },
-});

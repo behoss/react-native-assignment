@@ -1,95 +1,75 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, Image, Button, Pressable } from "react-native";
-import { Text, View } from "../../components/Themed";
+import React, { useState } from "react";
+import { ScrollView, View } from "react-native";
+import { Card, Avatar, IconButton, Title, Paragraph } from "react-native-paper";
 import profiles_data from "../../data/profiles.json";
-import { FontAwesome } from "@expo/vector-icons";
 import { getImagePath } from "../../utils";
-
-export type Profile = {
-  id: number;
-  name: string;
-  age: number;
-  bio: string;
-  image: string;
-};
+import { Profile } from "../../types";
+import useStore from "../../store";
 
 export default function TabOneScreen() {
+  const { addProfile } = useStore();
+
   const [profiles, setProfiles] = useState<Profile[]>(profiles_data);
 
+  const removeProfile = (id: number) => {
+    setProfiles((prevProfiles) => prevProfiles.filter((p) => p.id !== id));
+  };
+
+  const handleLikeProfile = (profile: Profile) => {
+    addProfile(profile);
+    removeProfile(profile.id);
+  };
+
+  const handleDislikeProfile = (profile: Profile) => {
+    removeProfile(profile.id);
+  };
+
   return (
-    <ScrollView contentContainerStyle={[styles.container, { marginTop: 10 }]}>
+    <ScrollView contentContainerStyle={{ alignItems: "center" }}>
       {profiles.map((profile) => (
-        <View key={profile.id} style={styles.profile}>
-          <Image source={getImagePath(profile.image)} style={styles.image} />
-          <Text style={styles.name}>
-            {profile.name}, {profile.age}
-          </Text>
-          <Text style={styles.bio}>{profile.bio}</Text>
-          <View style={styles.buttonContainer}>
-            <Pressable
-              onPress={() => {
-                /* Handle dislike */
-              }}
-              style={styles.circleButton}
-            >
-              <FontAwesome name="times" size={24} color="white" />
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                /* Handle like */
-              }}
-              style={styles.circleButton}
-            >
-              <FontAwesome name="heart" size={24} color="white" />
-            </Pressable>
-          </View>
-        </View>
+        <Card
+          key={profile.id}
+          style={{ width: "90%", marginVertical: 10, elevation: 4 }}
+          onPress={() => {
+            console.log("Pressed");
+          }}
+        >
+          <Card.Content
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <Avatar.Image
+              size={120}
+              source={getImagePath(profile.image)}
+              style={{ marginVertical: 10 }}
+            />
+            <Title style={{ fontWeight: "bold", marginVertical: 5 }}>
+              {profile.name}, {profile.age}
+            </Title>
+            <Paragraph style={{ textAlign: "center", marginVertical: 5 }}>
+              {profile.bio}
+            </Paragraph>
+
+            <View style={{ flexDirection: "row", marginVertical: 10 }}>
+              <IconButton
+                icon="close"
+                mode="outlined"
+                iconColor="teal"
+                containerColor="white"
+                size={48}
+                onPress={() => handleDislikeProfile(profile)}
+              />
+              <IconButton
+                icon="heart"
+                mode="outlined"
+                iconColor="white"
+                containerColor="teal"
+                size={48}
+                onPress={() => handleLikeProfile(profile)}
+              />
+            </View>
+          </Card.Content>
+        </Card>
       ))}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  profile: {
-    width: "90%",
-    marginBottom: 30,
-    alignItems: "center",
-    padding: 10,
-    borderRadius: 24,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  bio: {
-    fontSize: 14,
-    marginBottom: 10,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    marginTop: 10,
-  },
-  circleButton: {
-    marginHorizontal: 10,
-    backgroundColor: "teal",
-    borderRadius: 24,
-    width: 48,
-    height: 48,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

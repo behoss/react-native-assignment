@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Image } from "react-native";
 import { Text, View } from "../../components/Themed";
 import profiles_data from "../../data/profiles.json";
 import { getImagePath } from "../../utils";
-import { Profile } from ".";
+import { Profile } from "../../types";
 
 // Filter out the first two profiles to simulate blocked users
 const blockedProfiles = profiles_data.slice(0, 2);
