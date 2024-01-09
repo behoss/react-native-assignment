@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { Card, Avatar, IconButton, Title, Paragraph } from "react-native-paper";
+import { ScrollView, View, Image } from "react-native";
+import {
+  Card,
+  Avatar,
+  IconButton,
+  Title,
+  Paragraph,
+  Modal,
+} from "react-native-paper";
 import profiles_data from "../../data/profiles.json";
 import { getImagePath } from "../../utils";
 import { Profile, GenderEnum } from "../../types";
@@ -45,6 +52,16 @@ export default function TabOneScreen() {
     removeProfile(profile.id);
   };
 
+  const [visible, setVisible] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+
+  const showModal = (profile: Profile) => {
+    setSelectedProfile(profile);
+    setVisible(true);
+  };
+
+  const hideModal = () => setVisible(false);
+
   return (
     <>
       <Title style={{ marginHorizontal: 16, marginVertical: 10 }}>{`Showing ${
@@ -60,9 +77,7 @@ export default function TabOneScreen() {
           <Card
             key={profile.id}
             style={{ width: "90%", marginVertical: 10, elevation: 4 }}
-            onPress={() => {
-              console.log("Pressed");
-            }}
+            onPress={() => showModal(profile)}
           >
             <Card.Content
               style={{ alignItems: "center", justifyContent: "center" }}
@@ -101,6 +116,38 @@ export default function TabOneScreen() {
           </Card>
         ))}
       </ScrollView>
+
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={{
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 20,
+        }}
+      >
+        {selectedProfile && (
+          <View
+            style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+          >
+            <Image
+              source={getImagePath(selectedProfile.image)}
+              style={{ width: "100%", height: 300, borderRadius: 10 }}
+              resizeMode="cover"
+            />
+            <Title
+              style={{
+                fontWeight: "bold",
+                textAlign: "center",
+                marginVertical: 12,
+              }}
+            >
+              {selectedProfile.name}, {selectedProfile.age}
+            </Title>
+            <Paragraph style={{}}>{selectedProfile.longBio}</Paragraph>
+          </View>
+        )}
+      </Modal>
     </>
   );
 }
