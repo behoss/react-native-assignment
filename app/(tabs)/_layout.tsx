@@ -55,10 +55,10 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="blocked"
+        name="preferences"
         options={{
-          title: "Blocked",
-          tabBarIcon: ({ color }) => <TabBarIcon name="ban" color={color} />,
+          title: "Preferences",
+          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}
       />
     </Tabs>

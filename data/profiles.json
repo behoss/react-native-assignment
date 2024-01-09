@@ -4,34 +4,44 @@
     "name": "Alex",
     "age": 30,
     "bio": "Loves hiking and outdoor adventures.",
-    "image": "assets/images/profiles/1_M_30_Alex.webp"
+    "longBio": "Loves hiking and outdoor adventures. Looking for someone to share my life with. I have a dog named Turbo and enjoy Italian food.",
+    "image": "assets/images/profiles/1_M_30_Alex.webp",
+    "gender": "male"
   },
   {
     "id": 2,
     "name": "Sam",
     "age": 33,
     "bio": "Passionate about music and art.",
-    "image": "assets/images/profiles/4_M_33_Sam.webp"
+    "longBio": "Passionate about music and art. Looking for someone to share my life with. I have a dog named Turbo and enjoy Italian food.",
+    "image": "assets/images/profiles/4_M_33_Sam.webp",
+    "gender": "male"
   },
   {
     "id": 3,
     "name": "Katie",
     "age": 32,
     "bio": "Avid reader and writer.",
-    "image": "assets/images/profiles/7_F_32_Katie.webp"
+    "longBio": "Avid reader and writer. Looking for someone to share my life with. I have a dog named Turbo and enjoy Italian food.",
+    "image": "assets/images/profiles/7_F_32_Katie.webp",
+    "gender": "female"
   },
   {
     "id": 4,
     "name": "Emily",
     "age": 25,
     "bio": "Fitness enthusiast and tech geek.",
-    "image": "assets/images/profiles/9_F_25_Emily.webp"
+    "longBio": "Fitness enthusiast and tech geek. Looking for someone to share my life with. I have a dog named Turbo and enjoy Italian food.",
+    "image": "assets/images/profiles/9_F_25_Emily.webp",
+    "gender": "female"
   },
   {
     "id": 5,
     "name": "Ivy",
     "age": 26,
     "bio": "Lover of travel and new experiences.",
-    "image": "assets/images/profiles/12_N_26_Ivy_1.webp"
+    "longBio": "Lover of travel and new experiences. Looking for someone to share my life with. I have a dog named Turbo and enjoy Italian food.",
+    "image": "assets/images/profiles/12_N_26_Ivy_1.webp",
+    "gender": "female"
   }
 ]

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Convos, Profile, Message } from "../types";
+import { Convos, Profile, Message, GenderEnum } from "../types";
 
 interface IUseState {
   // Store liked profiles
@@ -9,12 +9,21 @@ interface IUseState {
   addToConvos: (convoId: number, message: Message) => void;
   getLastMessageInConvo: (convoId: number) => string | undefined;
   unmatchProfile: (profileId: number) => void;
+  profilesFilter: GenderEnum;
+  setProfilesFilter: (type: GenderEnum) => void;
 }
 
 // @ts-ignore
 const useStore = create<IUseState>((set) => ({
   likedProfiles: [],
   convos: {},
+  profilesFilter: GenderEnum.ALL,
+
+  setProfilesFilter: (type: GenderEnum) => {
+    set(() => ({
+      profilesFilter: type,
+    }));
+  },
 
   addToConvos: (convoId: number, message: Message) =>
     set((state) => ({
